@@ -1,0 +1,742 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: whitesmoke;
+  margin-top: 1em;
+}
+
+header,
+main,
+footer {
+  padding: 3vw;
+  width: 100%;
+  max-width: 100%; /* Adjust as needed */
+  margin: 0 auto;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.text-stroke {
+  color: whitesmoke; /* The color of the text */
+  -webkit-text-stroke-width: 2px; /* Width of the stroke */
+  -webkit-text-stroke-color: blue; /* Color of the stroke */
+  font-size: 9vmin; /* Example font size */
+  font-weight: bold; /* Example font weight */
+}
+
+main {
+  margin-top: 100px; /* Adjust to leave space for the header */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 9vmin;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+h2 {
+  font-size: 0.9em;
+}
+
+h1,
+h2,
+h3 {
+  text-align: center;
+  color: blue;
+}
+
+h3 {
+  font-size: 8vmin;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+section {
+  margin: 20px 0;
+}
+
+
+
+
+.wordart {
+  position: relative;
+  margin-bottom: 20%;
+}
+
+.preview-one,
+.preview-two {
+  position: absolute;
+  font-size: 3em;
+  font-weight: bold;
+  margin-top: 50%;
+  align-items: center;
+  cursor: move;
+  user-select: none;
+}
+
+.preview-one::before,
+.preview-two::before {
+  content: attr(data-content);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  color: #ccc;
+  cursor: move;
+}
+
+.container-one,
+.container-two {
+  text-align: center;
+}
+
+.container-one {
+  margin: auto;
+  max-width: 20rem;
+  width: 100%;
+  position: absolute;
+  top: 30%;
+  right: 0;
+  padding: 2rem 2rem 2rem 1rem;
+}
+
+.container-two {
+  margin: auto;
+  max-width: 20rem;
+  width: 100%;
+  position: absolute;
+  top: 50%; /* Adjust this value to move the preview of text2 further down */
+  right: 0;
+  padding: 2rem 2rem 2rem 1rem; 
+}
+
+/* General styles for form items */
+.form-item-one,
+.form-item-two {
+  margin: 10px;
+  padding: 8px;
+  font-size: 1em;
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+  border-radius: 5px;
+  min-width: 200px;
+}
+.select-shape {
+  margin: 10px;
+  padding: 8px;
+  font-size: 1em;
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+  border-radius: 5px;
+  min-width: 70px;
+}
+
+
+
+textarea[name="textOverlay1"],
+textarea[name="textOverlay2"] {
+  resize: none;
+  height: 100px;
+  background-color: whitesmoke;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+/* WordArt Styles */
+.style-one .preview-one,
+.style-one .preview-two {
+  transform: scale(1.05, 1.25);
+  font-weight: 900;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  -webkit-text-stroke: 1px #000;
+}
+
+.style-two .preview-one,
+.style-two .preview-two {
+  transform: scaleY(1.65) rotate(-3deg) skewY(-10deg);
+  font-weight: 900;
+  color: #000;
+}
+
+.style-three .preview-one,
+.style-three .preview-two {
+  transform: scaleY(1.65);
+  font-style: italic;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  -webkit-text-stroke: 1px #000;
+  text-shadow: 3px 2px 0 #999;
+}
+
+.style-four .preview-one,
+.style-four .preview-two {
+  font-family: Times New Roman, serif;
+  font-weight: 400;
+  color: #336699;
+  text-shadow: 2px 1px 0 #c1c1c1;
+}
+
+/* WordArt Style Five */
+.style-five .preview-one,
+.style-five .preview-two {
+  transform: scaleY(1.25);
+  font-weight: 900;
+  color: #d8d8d8;
+  -webkit-text-fill-color: #d8d8d8;
+  -webkit-text-stroke: 1px #3333cc;
+}
+
+.style-five .preview-one::before,
+.style-five .preview-two::before {
+  position: absolute;
+  content: attr(data-content);
+  color: #9999ff;
+  -webkit-text-fill-color: #9999ff;
+  -webkit-text-stroke: transparent;
+  transform: translate(0.4vw, 0.25vw);
+  mix-blend-mode: darken;
+}
+
+/* WordArt Style Six */
+.style-six .preview-one,
+.style-six .preview-two {
+  transform: scaleX(0.85) translateZ(0);
+  font-weight: 900;
+  color: transparent;
+  background: linear-gradient(#adadad, #fff);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  letter-spacing: 0.25rem;
+}
+
+.style-six .preview-one::before,
+.style-six .preview-two::before {
+  position: absolute;
+  content: attr(data-content);
+  z-index: -1;
+  text-shadow: 0.125em 0.125em #717171;
+}
+
+/* WordArt Style Seven */
+.style-seven .preview-one,
+.style-seven .preview-two {
+  transform: scaleY(1.25);
+  font-family: Impact, sans-serif;
+  color: #0066cc;
+  -webkit-text-fill-color: #0066cc;
+  -webkit-text-stroke: 0.016em #99ccff;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-seven .preview-one::before,
+.style-seven .preview-two::before {
+  position: absolute;
+  content: attr(data-content);
+  z-index: -1;
+  text-shadow: 0.094em 0.078em #990000;
+}
+
+/* WordArt Style Eight */
+.style-eight .preview-one,
+.style-eight .preview-two {
+  transform: scaleY(1.25);
+  font-family: Impact, sans-serif;
+  color: transparent;
+  background: radial-gradient(ellipse at center, #fff812, #ff9a32);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-eight .preview-one::before,
+.style-eight .preview-two::before {
+  position: absolute;
+  content: attr(data-content);
+  z-index: -1;
+  text-shadow: 0.094em 0.063em #cdcdcd;
+}
+
+/* WordArt Style Nine */
+.style-nine .preview-one,
+.style-nine .preview-two {
+  transform: scale(0.9, 1.65) rotate(-3deg) skewY(-3deg) translateZ(0);
+  font-family: Impact, sans-serif;
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(#6900cc, #cb00cc);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.016em #d2a2fe;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-nine .preview-one::before,
+.style-nine .preview-two::before {
+  position: absolute;
+  content: attr(data-content);
+  z-index: -1;
+  text-shadow: 0.094em 0.063em #adadff;
+}
+
+/* WordArt Style Ten */
+.style-ten .preview-one,
+.style-ten .preview-two {
+  transform: scale(0.85, 1.25);
+  font-family: Times New Roman, serif;
+  font-weight: 400;
+  color: #1a4b28;
+  -webkit-text-fill-color: #1a4b28;
+  -webkit-text-stroke: 1.5px #008000;
+}
+
+.style-ten .preview-one::before,
+.style-ten .preview-two::before {
+  content: "";
+  z-index: -1;
+  font-size: 10vmin;
+  color: #d2e5dc;
+  -webkit-text-fill-color: #d2e5dc;
+  -webkit-text-stroke: transparent;
+  transform: translate(-2.5vmin, -4vmin);
+}
+
+/* WordArt Style Eleven */
+.style-eleven .preview-one,
+.style-eleven .preview-two {
+  transform: scaleY(1.65);
+  font-weight: 900;
+  color: transparent;
+  background: linear-gradient(to left, #a104ad, #0b2be0, #329941, #f7f658, #f16412, #e92153, #aa04a7);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.016em #eaeaea;
+  -webkit-background-clip: text;
+  background-clip: text;
+  letter-spacing: 0.1rem;
+}
+
+.style-eleven .preview-one::before,
+.style-eleven .preview-two::before {
+  content: "";
+  z-index: -1;
+  color: #cdcdcd;
+  -webkit-text-fill-color: #cdcdcd;
+  -webkit-text-stroke: transparent;
+  transform: rotateX(63deg) skew(60deg) scaleY(0.65) translate3d(2em, -2.15em, -1em);
+}
+
+/* WordArt Style Twelve */
+.style-twelve .preview-one,
+.style-twelve .preview-two {
+  font-family: Times New Roman, serif;
+  font-weight: 400;
+  color: transparent;
+  background: linear-gradient(#999cfc, #1b999c);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-twelve .preview-one::before,
+.style-twelve .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: 0.031em 0.031em #cdcdcd;
+}
+
+/* WordArt Style Thirteen */
+.style-thirteen .preview-one,
+.style-thirteen .preview-two {
+  transform: scale(0.65, 1.65);
+  font-weight: 900;
+  color: #896640;
+}
+
+.style-thirteen .preview-one::before,
+.style-thirteen .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: 1px 0 #1b0d00, 2px 0 #1b0d00, 3px 0 #1b0d00, 4px 0 #1b0d00, 5px 0 #1b0d00, 6px 0 #1b0d00, 7px 0 #1b0d00;
+}
+
+/* WordArt Style Fourteen */
+.style-fourteen .preview-one,
+.style-fourteen .preview-two {
+  transform: scale(0.85, 1.3) translateZ(0);
+  font-family: Times New Roman, serif;
+  font-weight: 400;
+  background: linear-gradient(#fffecb, #ff9999);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  letter-spacing: -0.1vw;
+}
+
+.style-fourteen .preview-one::before,
+.style-fourteen .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: -1px 0 0 #002245, 0 -1px 0 #0050a0, -2px -1px 0.25px #002245, -1px -2px 0.25px #0050a0, -3px -2px 0.25px #002245, -2px -3px 0.25px #0050a0, -4px -3px 0.25px #002245, -3px -4px 0.25px #0050a0, -5px -4px 0.25px #002245, -4px -5px 0.25px #0050a0;
+}
+
+/* WordArt Style Fifteen */
+.style-fifteen .preview-one,
+.style-fifteen .preview-two {
+  transform: perspective(200px) rotateX(30deg) scaleY(1.65);
+  font-weight: 900;
+  color: transparent;
+  background: linear-gradient(#551700, #fecb00);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px #b2b2b2;
+  -webkit-background-clip: text;
+  background-clip: text;
+  letter-spacing: 0.1vw;
+}
+
+.style-fifteen .preview-one::before,
+.style-fifteen .preview-two::before {
+  content: "";
+  z-index: -1;
+  color: #ab8d56;
+  -webkit-text-fill-color: #ab8d56;
+  -webkit-text-stroke: transparent;
+  transform: perspective(250px) translateY(-0.643em) rotateX(70deg) scale(1) translateZ(-1em);
+}
+
+/* WordArt Style Sixteen */
+.style-sixteen .preview-one,
+.style-sixteen .preview-two {
+  transform: scale(0.8, 1.2);
+  font-family: Impact, sans-serif;
+  font-weight: 900;
+  color: #33ccff;
+  -webkit-text-stroke : 1.25px #000099;
+  text-shadow: 0.35rem -0.35rem 0 #000099;
+  letter-spacing: -0.15vw;
+}
+
+/* WordArt Style Seventeen */
+.style-seventeen .preview-one,
+.style-seventeen .preview-two {
+  transform: scale(1.05, 1.25);
+  font-weight: 900;
+  color: transparent;
+  background: repeating-linear-gradient(180deg, transparent, transparent 1px, #ffff00 1px, #ffff00 4px), repeating-linear-gradient(-50deg, #808080, #808080 5px, #ffff00 5px, #ffff00 8px);
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px #000;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-seventeen .preview-one::before,
+.style-seventeen .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: 3px 2px 0 #999;
+}
+
+/* WordArt Style Eighteen */
+.style-eighteen .preview-one,
+.style-eighteen .preview-two {
+  transform: scaleY(1.5) translateZ(0);
+  font-family: Times New Roman, serif;
+  font-weight: 400;
+  background: linear-gradient(#b6b6b6 0%, #5f5f5f 20%, #b1b1b1 30%, #fff 64%, #6c6c6c 65%, #373737 66%, #515151 67%, #787878 75%, #d2d2d2 80%, #d2d2d2 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-eighteen .preview-one::before,
+.style-eighteen .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: -1px 0 0 #4a4a4a, 0 -1px 0 #8b8b8b, -2px -1px 0.125px #4a4a4a, -1px -1px 0.125px #8b8b8b, -3px -2px 0.125px #4a4a4a, -2px -2px 0.125px #8b8b8b, -4px -3px 0.125px #4a4a4a, -3px -3px 0.125px #8b8b8b, -5px -4px 0.125px #4a4a4a, -4px -4px 0.125px #8b8b8b, -5px -5px 0 #4a4a4a, -5px -5px 0 #8b8b8b;
+}
+
+/* WordArt Style Nineteen */
+.style-nineteen .preview-one,
+.style-nineteen .preview-two {
+  transform: scale(0.65, 1.75);
+  font-weight: 900;
+  color: #0f3a1a;
+  transform: perspective(100px) rotateY(6deg) rotateZ(-7deg);
+}
+
+.style-nineteen .preview-one::before,
+.style-nineteen .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: -1px 0 0 #000800, 0 -1px 0 #005600, -2px -1px 0.125px #000800, -1px -2px 0.125px #005600, -3px -2px 0.125px #000800, -2px -3px 0.125px #005600, -4px -3px 0.125px #000800, -3px -4px 0.125px #005600, -5px -4px 0.125px #000800, -4px -5px 0.125px #005600, -6px -5px 0.125px #000800, -5px -6px 0.125px #005600, -7px -6px 0.125px #000800;
+}
+
+/* WordArt Style Twenty */
+.style-twenty .preview-one,
+.style-twenty .preview-two {
+  transform: perspective(100px) rotateY(6deg) rotateZ(-3deg) skewY(15deg) scale(0.8, 1.25);
+  font-family: Impact, sans-serif;
+  color: transparent;
+  background: linear-gradient(to left, #747474, #fff, #747474);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-twenty .preview-one::before,
+.style-twenty .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: -1px 0 0 #72745b, 0 1px 0 #2c2d23, -2px 1px 0.5px #72745b, -1px 2px 0.5px #2c2d23, -3px 2px 0.5px #72745b, -2px 3px 0.5px #2c2d23, -4px 3px 0.5px #72745b, -3px 4px 0.5px #2c2d23, -5px 4px 0.5px #72745b, -4px 5px 0.5px #2c2d23, -6px 5px 0.5px #72745b, -5px 6px 0.5px #2c2d23, -7px 6px 0.5px #72745b, -6px 7px 0.5px #2c2d23, -8px 7px 0.5px #72745b, -7px 8px 0.5px #2c2d23, -9px 8px 0.5px #72745b, -8px 9px 0.5px #2c2d23, -10px 9px 0.5px #72745b, -9px 10px 0.5px #2c2d23, -11px 10px 0.5px #72745b, -10px 11px 0.5px #2c2d23, -12px 11px 0.5px #72745b, -11px 12px 0.5px #2c2d23, -13px 12px 0.5px #72745b, -12px 13px 0.5px #2c2d23, -14px 13px 0.5px #72745b, -13px 14px 0.5px #2c2d23, -15px 14px 0.5px #72745b, -14px 15px 0.5px #2c2d23, -16px 15px 0.5px #72745b, -15px 16px 0.5px #2c2d23, -17px 16px 0.5px #72745b, -16px 17px 0.5px #2c2d23, -18px 17px 0.5px #72745b, -17px 18px 0.5px #2c2d23, -19px 18px 0 #72745b, -18px 19px 0 #2c2d23;
+}
+
+/* WordArt Style Twenty-One */
+.style-twentyone .preview-one,
+.style-twentyone .preview-two {
+  transform: scaleY(1.5) skewY(-8deg) rotateZ(-3deg) translateZ(0);
+  font-family: Impact, sans-serif;
+  color: transparent;
+  background: linear-gradient(to bottom left, #fee601, #fee601 15%, #fe4201);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-twentyone .preview-one::before,
+.style-twentyone .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: -1px 0 0 #000, 0 -1px 0 #000, -2px -1px 0.5px #000, -1px -2px 0.5px #000, -3px -2px 0.5px #000, -2px -3px 0.5px #000, -4px -3px 0.5px #000, -3px -4px 0.5px #000, -5px -4px 0.5px #000, -4px -5px 0.5px #000, -6px -5px 0.5px #000, -5px -6px 0.5px #000, -7px -6px 0.5px #000, -6px -7px 0.5px #000, -8px -7px 0.5px #000, -7px -8px 0.5px #000, -9px -8px 0.5px #000, -8px -9px 0.5px #000, -10px -9px 0.5px #000, -9px -10px 0.5px #000, -11px -10px 0.5px #000, -10px -11px 0.5px #000, -12px -11px 0.5px #000, -11px -12px 0.5px #000, -13px -12px 0.5px #000, -12px -13px 0.5px #000, -14px -13px 0.5px #000, -13px -14px 0.5px #000, -15px -14px 0.5px #000, -14px -15px 0.5px #000, -16px -15px 0.5px #000, -15px -16px 0.5px #000, -17px -16px 0.5px #000, -16px -17px 0.5px #000, -18px -17px 0.5px #000, -17px -18px 0.5px #000, -19px -18px 0 #000, -18px -19px 0 #000;
+}
+
+/* WordArt Style Twenty-Two */
+.style-twentytwo .preview-one,
+.style-twentytwo .preview-two {
+  transform: scaleY(1.5) skewY(-8deg) rotateZ(-3deg) translateZ(0);
+  font-family: Impact, sans-serif;
+  color: transparent;
+  background: linear-gradient(to bottom left, #5f5f5f, #5f5f5f 15%, #b6b6b6);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.style-twentytwo .preview-one::before,
+.style-twentytwo .preview-two::before {
+  content: "";
+  z-index: -1;
+  text-shadow: -1px 0 0 #000, 0 -1px 0 #000, -2px -1px 0.5px #000, -1px -2px 0.5px #000, -3px -2px 0.5px #000, -2px -3px 0.5px #000, -4px -3px 0.5px #000, -3px -4px 0.5px #000, -5px -4px 0.5px #000, -4px -5px 0.5px #000, -6px -5px 0.5px #000, -5px -6px 0.5px #000, -7px -6px 0.5px #000, -6px -7px 0.5px #000, -8px -7px 0.5px #000, -7px -8px 0.5px #000, -9px -8px 0.5px #000, -8px -9px 0.5px #000, -10px -9px 0.5px #000, -9px -10px 0.5px #000, -11px -10px 0.5px #000, -10px -11px 0.5px #000, -12px -11px 0.5px #000, -11px -12px 0.5px #000, -13px -12px 0.5px #000, -12px -13px 0.5px #000, -14px -13px 0.5px #000, -13px -14px 0.5px #000, -15px -14px 0.5px #000, -14px -15px 0.5px #000, -16px -15px 0.5px #000, -15px -16px 0.5px #000, -17px -16px 0.5px #000, -16px -17px 0.5px #000, -18px -17px 0.5px #000, -17px -18px 0.5px #000, -19px -18px 0 #000, -18px -19px 0 #000;
+}
+
+/* Modal styles */
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.6rem 3rem;
+  border: 3px solid black;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.message {
+  font-size: 1.1rem;
+  margin-bottom: 1.6rem;
+  margin-top: 0;
+}
+
+.btn {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  background: white;
+  padding: 0.3rem 3.4rem;
+  border: 3px solid black;
+  margin-right: 2.6rem;
+  box-shadow: 0 0 0 black;
+  transition: all 0.2s;
+}
+
+.btn:last-child {
+  margin: 0;
+}
+
+.btn:hover {
+  box-shadow: 0.4rem 0.4rem 0 black;
+  transform: translate(-0.4rem, -0.4rem);
+}
+
+.btn:active {
+  box-shadow: 0 0 0 black;
+  transform: translate(0, 0);
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* BUTTONS */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+#saveButton {
+  --c: #fff;
+  background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p,100%)/300% no-repeat, blue;
+  color: #0000;
+  border: none;
+  transform: perspective(500px) rotateY(calc(20deg*var(--_i,-1)));
+  text-shadow: calc(var(--_i,-1)* 0.08em) -.01em 0 var(--c), calc(var(--_i,-1)*-0.08em) .01em 2px #0004;
+  outline-offset: .1em;
+  transition: 0.3s;
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+  cursor: pointer;
+  padding: .1em .3em;
+}
+
+#saveButton:hover,
+#saveButton:focus-visible {
+  --_p: 0%;
+  --_i: 1;
+}
+
+#saveButton:active {
+  text-shadow: none;
+  color: var(--c);
+  box-shadow: inset 0 0 9e9q #0005;
+  transition: 0s;
+}
+
+.button-press-me {
+  position: absolute;
+  left: 20px; /* Adjust this value as needed */
+  top: 70%; /* Adjust this value to position the button further down */
+  padding: 0.1em 0.25em;
+  width: 13em;
+  height: 4.2em;
+  background-color: blue;
+  border: 0.08em solid blue;
+  border-radius: 0.3em;
+  font-size: 12px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  cursor: pointer;
+}
+
+.button-press-me span {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0.4em;
+  width: 8.25em;
+  height: 2.5em;
+  background-color: white;
+  border-radius: 0.2em;
+  font-size: 1.5em;
+  color: blue;
+  border: 0.08em solid blue;
+  box-shadow: 0 0.4em 0.1em 0.019em blue;
+}
+
+.button-press-me span:hover {
+  transition: all 0.5s;
+  transform: translate(0, 0.4em);
+  box-shadow: 0 0 0 0 blue;
+}
+
+.button-press-me span:not(:hover) {
+  transition: all 1s;
+}
+
+/* Styling for the file input */
+#defaultCanvas0[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+footer {
+  padding: 10px 30px;
+  margin-bottom: 20px;
+  margin-top: 40rem;
+  color: darkgray;
+}
+
+@media (min-width: 700px) {
+  h1 {
+    font-size: 3em;
+  }	
+}
+
+@media (min-width: 1200px) {
+  h1 {
+    font-size: 4em;
+  }	
+}
+
+@media (min-width: 700px) {
+  /* applies to all screens wider than 700px */
+  header, footer {
+    padding: 2vw;
+  }
+  main {
+    padding: 0 2vw;
+  }
+}
