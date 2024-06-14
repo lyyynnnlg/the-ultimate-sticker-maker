@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
+  var button = document.getElementById('modal-close');
+  if (button) {
+    button.addEventListener('click', function() {
+      console.log('Button clicked! Redirecting to page1.html...');
+      window.location.href = 'page1.html';
+    });
+  } else {
+    console.error('Button not found!');
+  }
+});
+document.addEventListener('DOMContentLoaded', function() {
   const styleSelects = document.querySelectorAll('select[name="wordart-style"]');
   const textAreas = document.querySelectorAll('textarea[name^="text-"]');
   const previews = document.querySelectorAll('.preview-one, .preview-two');
